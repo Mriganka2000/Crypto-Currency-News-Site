@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="jumbotron mt-4">
+      <h1 class="display-4">Welcome To Crypto News Network!</h1>
+      <p class="lead">World's Best Crypto Currency News Website. Find all latest currency news here.</p>
+      <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </div>
+
+    <div class="row justify-content-center">
+        <h2>Currency Table</h2>
+    </div>
+
+    <div class="mt-4">
+        <table class="table table-bordered table-dark">
+            <thead>
+                <tr class="bg-dark">
+                    <th scope="col">Currency</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Daily High</th>
+                    <th scope="col">Daily Low</th>
+                    <th scope="col">MarketCap</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in price.DISPLAY.items %}
+                    <tr class="bg-{% cycle primary success warning danger info %}">
+                        <td>USD</td>
+                        <td>{{ key }}</td>
+                        <td>{{ value.USD.PRICE }}</td>
+                        <td>{{ value.USD.HIGHDAY }}</td>
+                        <td>{{ value.USD.LOWDAY }}</td>
+                        <td>{{ value.USD.MKTCAP }}</td>
+                    </tr>
+                {% endfor %}
+                {% for key, value in price.DISPLAY.items %}
+                    <tr class="bg-{% cycle primary success warning danger info %}">
+                        <td>EURO</td>
+                        <td>{{ key }}</td>
+                        <td>{{ value.EUR.PRICE }}</td>
+                        <td>{{ value.EUR.HIGHDAY }}</td>
+                        <td>{{ value.EUR.LOWDAY }}</td>
+                        <td>{{ value.EUR.MKTCAP }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row justify-content-center">
+        <h1>Latest News</h1>
+    </div>
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            {% for item in api.Data %}
+                <div class="col-sm">
+                    <div class="card" style="width: 18rem;">
+                      <img src="{{ item.imageurl }}" class="card-img-top" alt="{{ item.source }}">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.body }}</p>
+                        <a href="{{ item.url }}" class="btn btn-primary">Read More...</a>
+                      </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <br>
+    <div class="row justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <br>
+
+{% endblock content %}
